@@ -26,6 +26,8 @@ instance.interceptors.response.use(res => {
   return data as any
 })
 
+export default instance
+
 export type ResType = {
   errno: number
   data?: ResDataType

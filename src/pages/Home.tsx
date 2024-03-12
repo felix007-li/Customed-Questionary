@@ -1,9 +1,15 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Typography } from 'antd'
+
+import axios from 'axios'
 
 const { Title, Paragraph } = Typography
 
 const Home: FC = () => {
+  // useEffect(() => {
+  //   axios.get('/api/test').then(res => console.log('axios data', res.data))
+  // }, [])
+
   return (
     <div>
       <div>
