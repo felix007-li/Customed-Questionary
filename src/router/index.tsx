@@ -5,6 +5,9 @@ import MainLayout from '../layouts/MainLayout'
 import ManageLayout from '../layouts/ManageLayout'
 import NotFound from '../pages/NotFound'
 import Home from '../pages/Home'
+import List from '../pages/manage/List'
+import Star from '../pages/manage/Star'
+import Trash from '../pages/manage/Trash'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +25,20 @@ const router = createBrowserRouter([
       {
         path: 'manage',
         element: <ManageLayout />,
+        children: [
+          {
+            path: 'list',
+            element: <List />,
+          },
+          {
+            path: 'star',
+            element: <Star />,
+          },
+          {
+            path: 'trash',
+            element: <Trash />,
+          },
+        ],
       },
     ],
   },
@@ -29,4 +46,4 @@ const router = createBrowserRouter([
 
 export default router
 export const HOME_PATHNAME = '/'
-// export const MANAGE_INDEX_PATHNAME = '/manage/list'
+export const MANAGE_INDEX_PATHNAME = '/manage/list'

@@ -13,14 +13,14 @@ const MainLayout: FC = () => {
         <div className={styles.left}>
           <Logo />
         </div>
-        <div></div>
+        <div className={styles.right}></div>
       </Header>
-      <Layout>
+      <Layout className={styles.main}>
         <Content>
           <Outlet />
         </Content>
       </Layout>
-      <Footer>Questionary &copy;2024 - present. Created by Li</Footer>
+      <Footer className={styles.footer}>Questionary &copy;2024 - present. Created by Li</Footer>
     </Layout>
   )
 }

@@ -4,6 +4,7 @@ import { getQuestionListService } from '../../services/question'
 import { LIST_PAGE_SIZE } from '../../constant/index'
 import { Typography } from 'antd'
 import styles from './common.module.scss'
+import QuestionCard from '../../components/QuestionCard'
 
 const { Title } = Typography
 
@@ -29,8 +30,9 @@ const List: FC = () => {
     {
       manual: false,
       onSuccess(result) {
-        const { list: any = [] } = result
+        const { list } = result
         console.log('list', list)
+        setList(list)
       },
     }
   )
@@ -39,17 +41,17 @@ const List: FC = () => {
     <>
       <div className={styles.header}>
         <div className={styles.left}>
-          <Title level={3}>我的问卷</Title>
+          <Title level={3}>My questions</Title>
         </div>
         <div className={styles.right}></div>
       </div>
       <div className={styles.content}>
-        {/* 问卷列表 */}
-        {/* {list.length > 0 &&
+        {/* Question list */}
+        {list.length > 0 &&
           list.map((q: any) => {
             const { _id } = q
             return <QuestionCard key={_id} {...q} />
-          })} */}
+          })}
       </div>
       <div className={styles.footer}>
         {/* <div ref={containerRef}>{LoadMoreContentElem}</div> */}

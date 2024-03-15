@@ -7,8 +7,8 @@ import { useRequest } from 'ahooks'
 import { createQuestionService } from '../services/question'
 
 const ManageLayout: FC = () => {
-  // const nav = useNavigate()
-  //   const { pathname } = useLocation
+  const nav = useNavigate()
+  const { pathname } = useLocation()
 
   const { loading } = useRequest(createQuestionService, {
     manual: false,
@@ -26,13 +26,28 @@ const ManageLayout: FC = () => {
             Create Question
           </Button>
           <Divider style={{ borderTop: 'transpparent ' }} />
-          <Button type="text" size="large" icon={<BarsOutlined />}>
+          <Button
+            type={pathname.startsWith('/manage/list') ? 'default' : 'text'}
+            size="large"
+            icon={<BarsOutlined />}
+            onClick={() => nav('/manage/list')}
+          >
             My Questions
           </Button>
-          <Button type="text" size="large" icon={<StarOutlined />}>
+          <Button
+            type={pathname.startsWith('/manage/star') ? 'default' : 'text'}
+            size="large"
+            icon={<StarOutlined />}
+            onClick={() => nav('/manage/star')}
+          >
             Star Questions
           </Button>
-          <Button type="text" size="large" icon={<DeleteOutlined />}>
+          <Button
+            type={pathname.startsWith('/manage/trash') ? 'default' : 'text'}
+            size="large"
+            icon={<DeleteOutlined />}
+            onClick={() => nav('/manage/trash')}
+          >
             Trash
           </Button>
         </Space>

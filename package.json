@@ -24,9 +24,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test --watchAll=false",
     "lint": " eslint 'src/**/*.+(js|ts|jsx|tsx)' ",
     "format": " prettier --write 'src/**/*.+(js|ts|jsx|tsx)' ",
     "prepare": "husky install"
