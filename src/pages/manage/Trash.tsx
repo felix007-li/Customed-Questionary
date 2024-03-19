@@ -1,71 +1,70 @@
 import React, { FC, useState } from 'react'
 import { useTitle } from 'ahooks'
 import { Typography, Empty, Table, Tag, Button, Space, Modal, Spin, message } from 'antd'
-// import { ExclamationCircleOutlined } from '@ant-design/icons'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
-// import ListSearch from '../../components/ListSearch'
-// import ListPage from '../../components/ListPage'
+import ListSearch from '../../components/ListSearch'
+import ListPage from '../../components/ListPage'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
-// import { updateQuestionService, deleteQuestionsService } from '../../services/question'
+import { updateQuestionService, deleteQuestionsService } from '../../services/question'
 import styles from './common.module.scss'
 
 const { Title } = Typography
 const { confirm } = Modal
 
 const Trash: FC = () => {
-  useTitle('小慕问卷 - 回收站')
+  useTitle('Questionary - Trash')
 
-  const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true })
+  const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true })
   const { list = [], total = 0 } = data
 
   // selected id
   const [selectedIds, setSelectedIds] = useState<string[]>([])
 
   // Recovery
-  //   const { run: recover } = useRequest(
-  //     async () => {
-  //       for await (const id of selectedIds) {
-  //         await updateQuestionService(id, { isDeleted: false })
-  //       }
-  //     },
-  //     {
-  //       manual: true,
-  //       debounceWait: 500,
-  //       onSuccess() {
-  //         message.success('Recover successfully!')
-  //         refresh()
-  //         setSelectedIds([])
-  //       },
-  //     }
-  //   )
+  const { run: recover } = useRequest(
+    async () => {
+      for await (const id of selectedIds) {
+        await updateQuestionService(id, { isDeleted: false })
+      }
+    },
+    {
+      manual: true,
+      debounceWait: 500,
+      onSuccess() {
+        message.success('Recover successfully!')
+        refresh()
+        setSelectedIds([])
+      },
+    }
+  )
 
-  // 删除
-  //   const { run: deleteQuestion } = useRequest(
-  //     async () => await deleteQuestionsService(selectedIds),
-  //     {
-  //       manual: true,
-  //       onSuccess() {
-  //         message.success('Delete successfully!')
-  //         refresh()
-  //         setSelectedIds([])
-  //       },
-  //     }
-  //   )
+  // Delete
+  const { run: deleteQuestion } = useRequest(
+    async () => await deleteQuestionsService(selectedIds),
+    {
+      manual: true,
+      onSuccess() {
+        message.success('Delete successfully!')
+        refresh()
+        setSelectedIds([])
+      },
+    }
+  )
 
-  //   function del() {
-  //     confirm({
-  //       title: 'Aew you sure that you want to delete this question？',
-  //       icon: <ExclamationCircleOutlined />,
-  //       content: 'Could not recover after deleting',
-  //       onOk: deleteQuestion,
-  //     })
-  //   }
+  function del() {
+    confirm({
+      title: 'Aew you sure that you want to delete this question？',
+      icon: <ExclamationCircleOutlined />,
+      content: 'Could not recover after deleting',
+      onOk: deleteQuestion,
+    })
+  }
 
   const tableColumns = [
     {
       title: 'Title',
       dataIndex: 'title',
-      // key: 'title', // 循环列的 key ，它会默认取 dataIndex 的值
     },
     {
       title: 'Published?',
@@ -120,14 +119,22 @@ const Trash: FC = () => {
         <div className={styles.left}>
           <Title level={3}>Recycle</Title>
         </div>
-        <div className={styles.right}>{/* <ListSearch /> */}</div>
+        <div className={styles.right}>
+          <ListSearch />
+        </div>
       </div>
       <div className={styles.content}>
-        {loading && <div style={{ textAlign: 'center' }}>{/* <Spin /> */}</div>}
+        {loading && (
+          <div style={{ textAlign: 'center' }}>
+            <Spin />
+          </div>
+        )}
         {!loading && list.length === 0 && <Empty description="No Data for now" />}
         {list.length > 0 && TableElem}
       </div>
-      <div className={styles.footer}>{/* <ListPage total={total} /> */}</div>
+      <div className={styles.footer}>
+        <ListPage total={total} />
+      </div>
     </>
   )
 }

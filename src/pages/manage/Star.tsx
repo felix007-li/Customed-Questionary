@@ -4,6 +4,8 @@ import { Typography, Empty, Spin } from 'antd'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import QuestionCard from '../../components/QuestionCard'
 import styles from './common.module.scss'
+import ListSearch from '../../components/ListSearch'
+import ListPage from '../../components/ListPage'
 
 const { Title } = Typography
 
@@ -19,10 +21,16 @@ const Star: FC = () => {
         <div className={styles.left}>
           <Title level={3}>Star Questions</Title>
         </div>
-        <div className={styles.right}>{/* <ListSearch /> */}</div>
+        <div className={styles.right}>
+          <ListSearch />
+        </div>
       </div>
       <div className={styles.content}>
-        {loading && <div style={{ textAlign: 'center' }}>{/* <Spin /> */}</div>}
+        {loading && (
+          <div style={{ textAlign: 'center' }}>
+            <Spin />
+          </div>
+        )}
         {!loading && list.length === 0 && <Empty description="No data for now" />}
         {list.length > 0 &&
           list.map((q: any) => {
@@ -30,7 +38,7 @@ const Star: FC = () => {
             return <QuestionCard key={_id} {...q} />
           })}
       </div>
-      <div className={styles.footer}>{/* <ListPage total={total} /> */}</div>
+      <div className={styles.footer}>{!loading && <ListPage total={total} />}</div>
     </>
   )
 }

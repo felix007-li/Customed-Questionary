@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Outlet } from 'react-router-dom'
-import { Layout } from 'antd'
+import { Layout, Spin } from 'antd'
 import styles from './MainLayout.module.scss'
 import Logo from '../components/Logo'
 

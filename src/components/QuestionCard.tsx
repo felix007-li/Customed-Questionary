@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 // import { useRequest } from 'ahooks'
-import { Button, Space, Divider, Tag } from 'antd'
+import { Button, Space, Divider, Tag, message } from 'antd'
 import {
   EditOutlined,
   LineChartOutlined,
@@ -9,8 +9,11 @@ import {
   //   DeleteOutlined,
   //   ExclamationCircleOutlined,
 } from '@ant-design/icons'
+
 import styles from './QuestionCard.module.scss'
 import { Link } from 'react-router-dom'
+import { useRequest } from 'ahooks'
+import { updateQuestionService } from '../services/question'
 
 type PropsType = {
   _id: string
@@ -23,14 +26,33 @@ type PropsType = {
 
 const QuestionCard: FC<PropsType> = (props: PropsType) => {
   //   const nav = useNavigate()
-  const { title, createdAt, answerCount, isPublished } = props
+  const { _id, title, createdAt, answerCount, isPublished, isStar } = props
+
+  const [isStarState, setIsStarState] = useState(isStar)
+  const { loading: changeStarLoading, run: changeStar } = useRequest(
+    async () => {
+      await updateQuestionService(_id, {
+        isStar: !isStarState,
+      })
+    },
+    {
+      manual: true,
+      onSuccess() {
+        setIsStarState(!isStarState)
+        message.success('Updated')
+      },
+    }
+  )
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>
         <div className={styles.left}>
           <Link to="">
-            <Space style={{ color: 'blue' }}>{title}</Space>
+            <Space>
+              {isStarState && <StarOutlined style={{ color: 'red' }} />}
+              {title}
+            </Space>
           </Link>
         </div>
         <div className={styles.right}>
@@ -55,8 +77,14 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
         </div>
         <div className={styles.right}>
           <Space>
-            <Button icon={<StarOutlined />} type="text" size="small">
-              Star
+            <Button
+              icon={<StarOutlined />}
+              type="text"
+              size="small"
+              onClick={changeStar}
+              disabled={changeStarLoading}
+            >
+              {isStarState ? 'Cancel star' : 'Star'}
             </Button>
             <Button type="text" icon={<CopyOutlined />} size="small">
               Copy
