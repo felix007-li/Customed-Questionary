@@ -14,6 +14,7 @@ const Star: FC = () => {
 
   const { data = {}, loading } = useLoadQuestionListData({ isStar: true })
   const { list = [], total = 0 } = data
+  console.log('star data:', data)
 
   return (
     <>

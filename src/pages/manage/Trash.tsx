@@ -88,10 +88,10 @@ const Trash: FC = () => {
     <>
       <div style={{ marginBottom: '16px' }}>
         <Space>
-          <Button type="primary" disabled={selectedIds.length === 0}>
+          <Button type="primary" disabled={selectedIds.length === 0} onClick={recover}>
             Recovery
           </Button>
-          <Button danger disabled={selectedIds.length === 0}>
+          <Button danger disabled={selectedIds.length === 0} onClick={del}>
             Delete
           </Button>
         </Space>

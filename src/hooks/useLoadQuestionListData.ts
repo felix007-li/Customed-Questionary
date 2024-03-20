@@ -1,5 +1,4 @@
 import { useSearchParams } from 'react-router-dom'
-// import { useSearchParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
 import { getQuestionListService } from '../services/question'
 import {

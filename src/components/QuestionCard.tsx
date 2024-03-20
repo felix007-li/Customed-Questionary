@@ -1,19 +1,21 @@
 import React, { FC, useState } from 'react'
 // import { useRequest } from 'ahooks'
-import { Button, Space, Divider, Tag, message } from 'antd'
+import { Button, Space, Divider, Tag, message, Popconfirm, Modal } from 'antd'
 import {
   EditOutlined,
   LineChartOutlined,
   StarOutlined,
   CopyOutlined,
-  //   DeleteOutlined,
-  //   ExclamationCircleOutlined,
+  DeleteOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons'
 
-import styles from './QuestionCard.module.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useRequest } from 'ahooks'
-import { updateQuestionService } from '../services/question'
+import { duplicateQuestionService, updateQuestionService } from '../services/question'
+import styles from './QuestionCard.module.scss'
+
+const { confirm } = Modal
 
 type PropsType = {
   _id: string
@@ -25,9 +27,10 @@ type PropsType = {
 }
 
 const QuestionCard: FC<PropsType> = (props: PropsType) => {
-  //   const nav = useNavigate()
+  const nav = useNavigate()
   const { _id, title, createdAt, answerCount, isPublished, isStar } = props
 
+  // Change star
   const [isStarState, setIsStarState] = useState(isStar)
   const { loading: changeStarLoading, run: changeStar } = useRequest(
     async () => {
@@ -43,6 +46,41 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
       },
     }
   )
+
+  // copy
+  const { loading: duplicateLoading, run: duplicate } = useRequest(
+    async () => await duplicateQuestionService(_id),
+    {
+      manual: true,
+      onSuccess(result) {
+        message.success('Copied sucessfully!')
+        nav(`/question/edit/${result.id}`)
+      },
+    }
+  )
+
+  // delete
+  const [isDeletedState, setIsDeletedState] = useState(false)
+  const { loading: deleteLoading, run: deleteQuestion } = useRequest(
+    async () => await updateQuestionService(_id, { isDeleted: true }),
+    {
+      manual: true,
+      onSuccess() {
+        message.success('Deleted successfully!')
+        setIsDeletedState(true)
+      },
+    }
+  )
+
+  function del() {
+    confirm({
+      title: 'Are you sure you want to deleted this question?',
+      icon: <ExclamationCircleOutlined />,
+      onOk: deleteQuestion,
+    })
+  }
+
+  if (isDeletedState) return null
 
   return (
     <div className={styles.container}>
@@ -86,10 +124,23 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
             >
               {isStarState ? 'Cancel star' : 'Star'}
             </Button>
-            <Button type="text" icon={<CopyOutlined />} size="small">
-              Copy
-            </Button>
-            <Button icon={<EditOutlined />} type="text" size="small">
+            <Popconfirm
+              title="Are you sure to duplicate this question"
+              okText="Sure"
+              cancelText="Cancel"
+              onConfirm={duplicate}
+            >
+              <Button type="text" icon={<CopyOutlined />} size="small" disabled={duplicateLoading}>
+                Copy
+              </Button>
+            </Popconfirm>
+            <Button
+              icon={<DeleteOutlined />}
+              type="text"
+              size="small"
+              onClick={del}
+              disabled={deleteLoading}
+            >
               Delete
             </Button>
           </Space>
