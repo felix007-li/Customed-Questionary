@@ -8,6 +8,8 @@ import Home from '../pages/Home'
 import List from '../pages/manage/List'
 import Star from '../pages/manage/Star'
 import Trash from '../pages/manage/Trash'
+import Login from '../pages/Login'
+import Register from '../pages/Register'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: 'login',
+        element: <Login />,
+      },
+      {
+        path: 'register',
+        element: <Register />,
       },
       {
         path: '*',
@@ -46,4 +56,6 @@ const router = createBrowserRouter([
 
 export default router
 export const HOME_PATHNAME = '/'
+export const LOGIN_PATHNAME = '/login'
+export const REGISTER_PATHNAME = '/register'
 export const MANAGE_INDEX_PATHNAME = '/manage/list'
