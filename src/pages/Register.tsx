@@ -71,7 +71,7 @@ const Register: FC = () => {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve()
                   } else {
-                    return Promise.reject(new Error('Password was not correct for two times'))
+                    return Promise.reject(new Error('Password was different for last type'))
                   }
                 },
               }),

@@ -78,8 +78,8 @@ const Login: FC = () => {
       </div>
       <div>
         <Form
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 16 }}
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 18 }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
           form={form}
