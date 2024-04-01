@@ -10,10 +10,10 @@ const ManageLayout: FC = () => {
   const nav = useNavigate()
   const { pathname } = useLocation()
 
-  const { loading } = useRequest(createQuestionService, {
-    manual: false,
+  const { loading, run: handleCreateClick } = useRequest(createQuestionService, {
+    manual: true,
     onSuccess(result) {
-      // nav()
+      nav(`/question/edit/${result.id}`)
       message.success('Created succcessfully')
     },
   })
@@ -22,7 +22,13 @@ const ManageLayout: FC = () => {
     <div className={styles.container}>
       <div className={styles.left}>
         <Space direction="vertical">
-          <Button type="primary" size="large" icon={<PlusOutlined />}>
+          <Button
+            type="primary"
+            size="large"
+            icon={<PlusOutlined />}
+            onClick={handleCreateClick}
+            disabled={loading}
+          >
             Create Question
           </Button>
           <Divider style={{ borderTop: 'transpparent ' }} />
