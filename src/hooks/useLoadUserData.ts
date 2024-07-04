@@ -4,11 +4,16 @@ import { useDispatch } from 'react-redux'
 import useGetUserInfo from './useGetUserInfo'
 import { getUserInfoService } from '../services/user'
 import { loginReducer } from '../store/userReducer'
+import { useLocation } from 'react-router-dom'
 
 function useLoadUserData() {
   const dispatch = useDispatch()
   const [waitingUserData, setWaitingUserData] = useState(true)
-
+  const { pathname } = useLocation()
+  //   if (pathname.startsWith('/login' || pathname.startsWith('/register'))) {
+  //     setWaitingUserData(false)
+  //     return { waitingUserData }
+  //   }
   // Load user info using ajax
   const { run } = useRequest(getUserInfoService, {
     manual: true,
@@ -28,8 +33,12 @@ function useLoadUserData() {
       setWaitingUserData(false)
       return
     }
+    // if (!pathname.startsWith('/login' || !pathname.startsWith('/register'))) {
+    //   setWaitingUserData(false)
+    //   return
+    // }
     run()
-  }, [username])
+  }, [username, pathname])
 
   return { waitingUserData }
 }
