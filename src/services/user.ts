@@ -1,6 +1,6 @@
 import axios, { ResDataType } from './ajax'
 
-// Get user info
+// 获取用户信息
 export async function getUserInfoService(): Promise<ResDataType> {
   const url = '/api/user/info'
   const data = (await axios.get(url)) as ResDataType
@@ -19,7 +19,7 @@ export async function registerService(
   return data
 }
 
-// login
+// 登录
 export async function loginService(username: string, password: string): Promise<ResDataType> {
   const url = '/api/user/login'
   const body = { username, password }

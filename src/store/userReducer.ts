@@ -12,7 +12,7 @@ export const userSlice = createSlice({
   initialState: INIT_STATE,
   reducers: {
     loginReducer: (state: UserStateType, action: PayloadAction<UserStateType>) => {
-      return action.payload
+      return action.payload // setup username nickname in redux store
     },
     logoutReducer: () => INIT_STATE,
   },

@@ -9,7 +9,7 @@ function useLoadUserData() {
   const dispatch = useDispatch()
   const [waitingUserData, setWaitingUserData] = useState(true)
 
-  // Load user info using ajax
+  // ajax 加载用户信息
   const { run } = useRequest(getUserInfoService, {
     manual: true,
     onSuccess(result) {

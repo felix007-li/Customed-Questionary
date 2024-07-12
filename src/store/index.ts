@@ -1,14 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
-// import undoable, { excludeAction, StateWithHistory } from 'redux-undo'
+import undoable, { excludeAction, StateWithHistory } from 'redux-undo'
 import userReducer, { UserStateType } from './userReducer'
-// import componentsReducer, { ComponentsStateType } from './componentsReducer'
-// import pageInfoReducer, { PageInfoType } from './pageInfoReducer'
+import componentsReducer, { ComponentsStateType } from './componentsReducer'
 
 export type StateType = {
+  pageInfo: unknown
   user: UserStateType
-  // components: ComponentsStateType
-  //   components: StateWithHistory<ComponentsStateType> // 增加了 undo
-  //   pageInfo: PageInfoType
+  components: StateWithHistory<ComponentsStateType> // undo
 }
 
 export default configureStore({
