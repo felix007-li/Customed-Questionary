@@ -14,19 +14,6 @@ export type ComponentConfType = {
   Component: FC<ComponentPropsType>
   PropComponent: FC<ComponentPropsType>
   defaultProps: ComponentPropsType
-<<<<<<< HEAD
-  StatComponent?: FC<ComponentStatPropsType>
-}
-
-// Component setting list
-const componentConfList: ComponentConfType[] = [
-  QuestionInputConf,
-  QuestionInfoConf,
-  QuestionCheckboxConf,
-]
-
-// component group
-=======
   //   StatComponent?: FC<ComponentStatPropsType>
 }
 
@@ -34,16 +21,11 @@ const componentConfList: ComponentConfType[] = [
 const componentConfList: ComponentConfType[] = [QuestionInputConf, QuestionRadioConf]
 
 // components group
->>>>>>> login
 export const componentConfGroup = [
   {
     groupId: 'textGroup',
     groupName: 'Text display',
-<<<<<<< HEAD
-    components: [QuestionInfoConf],
-=======
     components: [],
->>>>>>> login
   },
   {
     groupId: 'inputGroup',
@@ -53,11 +35,7 @@ export const componentConfGroup = [
   {
     groupId: 'chooseGroup',
     groupName: 'User select',
-<<<<<<< HEAD
-    components: [QuestionCheckboxConf],
-=======
     components: [QuestionRadioConf],
->>>>>>> login
   },
 ]
 
