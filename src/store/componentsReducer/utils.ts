@@ -14,15 +14,12 @@ export function getNextSelectedId(fe_id: string, componentList: ComponentInfoTyp
   let newSelectedId = ''
   const length = visibleComponentList.length
   if (length <= 1) {
-    // only one component
     newSelectedId = ''
   } else {
-    // lenght of components > 1
     if (index + 1 === length) {
-      // seletc previous component if is the last component
+      // select previous one in order to delete last one
       newSelectedId = visibleComponentList[index - 1].fe_id
     } else {
-      // seletc next component if was not last component had been deleted
       newSelectedId = visibleComponentList[index + 1].fe_id
     }
   }
@@ -31,7 +28,7 @@ export function getNextSelectedId(fe_id: string, componentList: ComponentInfoTyp
 }
 
 /**
- * insert new component
+ * insert new compo
  * @param draft state draft
  * @param newComponent
  */
@@ -40,7 +37,7 @@ export function insertNewComponent(draft: ComponentsStateType, newComponent: Com
   const index = componentList.findIndex(c => c.fe_id === selectedId)
 
   if (index < 0) {
-    // did not seletct any component
+    // no selected compo
     draft.componentList.push(newComponent)
   } else {
     draft.componentList.splice(index + 1, 0, newComponent)

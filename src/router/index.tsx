@@ -10,6 +10,8 @@ import Star from '../pages/manage/Star'
 import Trash from '../pages/manage/Trash'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
+import QuestionLayout from '../layouts/QuestionLayout'
+import Edit from '../pages/question/Edit'
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,16 @@ const router = createBrowserRouter([
       {
         path: '*',
         element: <NotFound />,
+      },
+    ],
+  },
+  {
+    path: 'question',
+    element: <QuestionLayout />,
+    children: [
+      {
+        path: 'edit/:id',
+        element: <Edit />,
       },
     ],
   },

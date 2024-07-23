@@ -11,8 +11,8 @@ export * from './interface'
 // Input setting
 export default {
   title: 'Input',
-  type: 'questionInput', 
-  Component, // display in the canvas
-  PropComponent, // can edit the property
+  type: 'questionInput',
+  Component,
+  PropComponent,
   defaultProps: QuestionInputDefaultProps,
 }

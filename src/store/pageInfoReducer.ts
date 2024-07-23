@@ -6,7 +6,7 @@ export type PageInfoType = {
   desc?: string
   js?: string
   css?: string
-  isPublished?: boolean
+  isPublishing?: boolean
 }
 
 const INIT_STATE: PageInfoType = {
@@ -24,6 +24,7 @@ const pageInfoSlice = createSlice({
       return action.payload
     },
 
+    // modify data
     changePageTitle: produce((draft: PageInfoType, action: PayloadAction<string>) => {
       draft.title = action.payload
     }),

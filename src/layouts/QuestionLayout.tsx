@@ -7,7 +7,7 @@ import useNavPage from '../hooks/useNavPage'
 const QuestionLayout: FC = () => {
   // load user info
   const { waitingUserData } = useLoadUserData()
-  // go to login page if user did not login
+  // go to login page when did not login
   useNavPage(waitingUserData)
 
   return (

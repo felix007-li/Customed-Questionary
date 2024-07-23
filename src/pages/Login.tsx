@@ -36,6 +36,7 @@ const Login: FC = () => {
 
   useEffect(() => {
     const { username, password } = getUserInfoFromStorage()
+    console.log('username::::', username)
     form.setFieldsValue({ username, password })
   }, [])
 

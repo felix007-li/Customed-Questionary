@@ -1,16 +1,12 @@
 import type { FC } from 'react'
 import QuestionInputConf, { QuestionInputPropsType } from './QuestionInput/index'
-import QuestionInfoConf, { QuestionInfoPropsType } from './QuestionInfo'
-import QuestionCheckboxConf, {
-  QuestionCheckboxPropsType,
-  QuestionCheckboxStatPropsType,
-} from './QuestionCheckbox'
+import QuestionRadioConf, {
+  QuestionRadioPropsType,
+  //   QuestionRadioStatPropsType,
+} from './QuestionRadio'
 
-export type ComponentPropsType = QuestionInputPropsType &
-  QuestionInfoPropsType &
-  QuestionCheckboxPropsType
-
-type ComponentStatPropsType = QuestionCheckboxStatPropsType
+// unify the prop type of each component
+export type ComponentPropsType = QuestionInputPropsType & QuestionRadioPropsType
 
 export type ComponentConfType = {
   title: string
@@ -18,6 +14,7 @@ export type ComponentConfType = {
   Component: FC<ComponentPropsType>
   PropComponent: FC<ComponentPropsType>
   defaultProps: ComponentPropsType
+<<<<<<< HEAD
   StatComponent?: FC<ComponentStatPropsType>
 }
 
@@ -29,11 +26,24 @@ const componentConfList: ComponentConfType[] = [
 ]
 
 // component group
+=======
+  //   StatComponent?: FC<ComponentStatPropsType>
+}
+
+// components setting list
+const componentConfList: ComponentConfType[] = [QuestionInputConf, QuestionRadioConf]
+
+// components group
+>>>>>>> login
 export const componentConfGroup = [
   {
     groupId: 'textGroup',
     groupName: 'Text display',
+<<<<<<< HEAD
     components: [QuestionInfoConf],
+=======
+    components: [],
+>>>>>>> login
   },
   {
     groupId: 'inputGroup',
@@ -43,7 +53,11 @@ export const componentConfGroup = [
   {
     groupId: 'chooseGroup',
     groupName: 'User select',
+<<<<<<< HEAD
     components: [QuestionCheckboxConf],
+=======
+    components: [QuestionRadioConf],
+>>>>>>> login
   },
 ]
 

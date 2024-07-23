@@ -1,31 +1,30 @@
 import React, { FC } from 'react'
-// import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useTitle } from 'ahooks'
-import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
+import { changeSelectedId } from '../../../store/componentsReducer'
+import useLoadQuestionListData from '../../../hooks/useLoadQuestionListData'
+import useGetPageInfo from '../../../hooks/useGetPageInfo'
+import EditHeader from './EditHeader'
+import EditCanvas from './EditCanvas'
 import LeftPanel from './LeftPanel'
 import RightPanel from './RightPanel'
 import styles from './index.module.scss'
-import { changeSelectedId } from '../../../store/componentsReducer'
-import useGetPageInfo from '../../../hooks/useGetPageInfo'
+import { useTitle } from 'ahooks'
 
 const Edit: FC = () => {
-  // const { id = '' } = useParams()
   const dispatch = useDispatch()
-
-  const { loading } = useLoadQuestionData()
+  const { loading } = useLoadQuestionListData()
 
   function clearSelectedId() {
     dispatch(changeSelectedId(''))
   }
 
-  // change title
+  // edit title
   const { title } = useGetPageInfo()
-  useTitle(`问卷编辑 - ${title}`)
+  useTitle(`Edit question - ${title}`)
 
   return (
     <div className={styles.container}>
-      {/* <EditHeader /> */}
+      <EditHeader />
       <div className={styles['content-wrapper']}>
         <div className={styles.content}>
           <div className={styles.left}>
@@ -33,7 +32,7 @@ const Edit: FC = () => {
           </div>
           <div className={styles.main} onClick={clearSelectedId}>
             <div className={styles['canvas-wrapper']}>
-              {/* <EditCanvas loading={loading} /> */}
+              <EditCanvas loading={loading} />
             </div>
           </div>
           <div className={styles.right}>

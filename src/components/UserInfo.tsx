@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { Button, message } from 'antd'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
 import { LOGIN_PATHNAME } from '../router'
@@ -11,6 +11,7 @@ import { logoutReducer } from '../store/userReducer'
 const UserInfo: FC = () => {
   const nav = useNavigate()
   const dispatch = useDispatch()
+  const { pathname } = useLocation()
   const USERNAME_KEY = 'USERNAME'
   const PASSWORD_KEY = 'PASSWORD'
 
@@ -37,6 +38,8 @@ const UserInfo: FC = () => {
   )
 
   const Login = <Link to={LOGIN_PATHNAME}>Login</Link>
+  if (pathname.startsWith('/login'))
+    return <div>{localStorage.getItem(USERNAME_KEY) ? UserInfo : Login}</div>
   return <div>{localStorage.getItem(USERNAME_KEY) ? UserInfo : Login}</div>
 }
 
